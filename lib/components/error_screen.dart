@@ -1,6 +1,7 @@
 import 'package:codeforces_visualizer/utilities/routes.dart';
 import 'package:flutter/material.dart';
 
+//error screen when no response from codeforces servers
 class Error2Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

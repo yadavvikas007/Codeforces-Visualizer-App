@@ -2,6 +2,7 @@ import 'package:codeforces_visualizer/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+//empty space below appbar green color
 Widget emptySpace(double height) {
   return Container(
     height: height,
@@ -15,6 +16,7 @@ Widget emptySpace(double height) {
   );
 }
 
+//codeforces logo
 Widget codeforcesLogo(Size size) {
   return SvgPicture.asset(
     "assets/images/code-forces (1).svg",
@@ -23,6 +25,7 @@ Widget codeforcesLogo(Size size) {
   );
 }
 
+//codeforces named logo
 Widget codeforcesNamedLogo() {
   return Container(
     margin: EdgeInsets.symmetric(horizontal: kPadding),

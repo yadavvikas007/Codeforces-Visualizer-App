@@ -1,6 +1,5 @@
 import 'package:codeforces_visualizer/components/appbar.dart';
 import 'package:codeforces_visualizer/components/uiElements.dart';
-import 'package:codeforces_visualizer/screens/data/bar_chart_data.dart';
 import 'package:codeforces_visualizer/screens/drawer.dart';
 import 'package:codeforces_visualizer/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -39,21 +38,31 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  //to store input user handles
   String _handle1 = "";
   String _handle2 = "";
+
+  //form key
   final _formKey = GlobalKey<FormState>();
+
+  //for search button animation
   bool changeButton = false;
+
+  //to check for valid inputs
   bool isValid1 = false;
   bool isValid2 = false;
 
+  //input validator function for user1 textfield
   validateUser1() async {
     var url =
         Uri.https("www.codeforces.com", "/api/user.info?handles=$_handle1");
+    //checking the entered user handle by calling userinfo API
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonResponse["result"].isEmpty) {
+        //if no userinfo data recieved
         isValid1 = false;
       } else {
         isValid1 = true;
@@ -61,14 +70,17 @@ class _BodyState extends State<Body> {
     }
   }
 
+  //input validator function for user1 textfield
   validateUser2() async {
     var url =
         Uri.https("www.codeforces.com", "/api/user.info?handles=$_handle2");
+    //checking the entered user handle by calling userinfo API
     var response = await http.get(url);
     if (response.statusCode == 200) {
       var jsonResponse =
           convert.jsonDecode(response.body) as Map<String, dynamic>;
       if (jsonResponse["result"].isEmpty) {
+        //if no userinfo data recieved
         isValid2 = false;
       } else {
         isValid2 = true;
@@ -76,14 +88,17 @@ class _BodyState extends State<Body> {
     }
   }
 
+  //passing valid user handles to comparison page
   movetoComparePage(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       //validate current entries
       setState(() {
         changeButton = true;
       });
+      //ab 1 sec to dena pdega na button animation dikhane k liye
       await Future.delayed(Duration(seconds: 1));
-      // setData();
+
+      //moving to comparison page
       await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute<void>(
@@ -92,6 +107,7 @@ class _BodyState extends State<Body> {
         ),
         ModalRoute.withName("/"),
       );
+      //reseting the data before moving to next page
       setState(() {
         changeButton = false;
         _handle1 = "";

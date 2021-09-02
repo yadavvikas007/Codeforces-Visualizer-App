@@ -1,10 +1,10 @@
 import 'package:codeforces_visualizer/screens/data/line_chart_data.dart';
 import 'package:fl_chart/fl_chart.dart';
-
 import 'package:codeforces_visualizer/screens/singleUserScreenModels/ratingChanges.dart'
     as rat;
 import 'package:flutter/material.dart';
 
+//getting spots({x,y}) for single user timeline line chart
 List<LineChartBarData> getSpotsRatingsTimeline(
     List<rat.Result> ratingData1, List<rat.Result> ratingData2) {
   List<Data> data1 = ratingTimeline2users(ratingData1);
@@ -30,6 +30,7 @@ List<LineChartBarData> getSpotsRatingsTimeline(
   return lines;
 }
 
+//getting spots({x,y}) for compare user timeline line chart
 List<LineChartBarData> getSpotsRatingsTimelineSingleUser(
     List<rat.Result> ratingData) {
   List<Data> data1 = ratingTimeline2users(ratingData);

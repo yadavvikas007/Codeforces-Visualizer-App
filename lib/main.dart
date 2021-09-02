@@ -20,6 +20,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    //forced portrait mode
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -34,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       initialRoute: MyRoute.homeRoute, //initial route
       routes: {
         "/": (context) => HomePage(), //default route
-        MyRoute.homeRoute: (context) => HomePage(),
+        MyRoute.homeRoute: (context) => HomePage(), //homepage
         MyRoute.singleUserInputPage: (context) => SingleUserInputPage(),
         MyRoute.compareUsersInputPage: (context) => CompareUsersInputPage(),
         MyRoute.last10Contests: (context) => Last10ContestsAnalysis(),

@@ -1,5 +1,4 @@
 import 'dart:collection';
-
 import 'package:codeforces_visualizer/screens/singleUserDetailsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:codeforces_visualizer/screens/singleUserScreenModels/submissions.dart'
@@ -7,6 +6,7 @@ import 'package:codeforces_visualizer/screens/singleUserScreenModels/submissions
 
 late LinkedHashMap sortedTagsMap;
 
+//to get sections of piechart verdicts
 List<PieData> verdictsFromData(List<sub.Result> subData) {
   Map<String, double> mp = {};
   subData.forEach((v) {
@@ -32,6 +32,7 @@ List<PieData> verdictsFromData(List<sub.Result> subData) {
   return data;
 }
 
+//to get sections of piechart tags
 List<PieData> tagsFromData(List<sub.Result> subData) {
   Map<String, double> mp = {};
   Set<String> st = {};
@@ -64,6 +65,7 @@ List<PieData> tagsFromData(List<sub.Result> subData) {
   return data;
 }
 
+//pie-section data
 class PieData {
   late final String name;
   final double value;

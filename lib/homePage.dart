@@ -11,7 +11,6 @@ import 'components/appbar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -32,7 +31,6 @@ class _HomePageState extends State<HomePage> {
 
 class Body extends StatefulWidget {
   const Body({Key? key}) : super(key: key);
-
   @override
   _BodyState createState() => _BodyState();
 }
@@ -118,7 +116,6 @@ Widget homePageButton(String text, void Function()? onpress, IconData icon) {
     //   onTap: onpress,
     //   shape: ShapeBorder.lerp(a, b, t),
     // ),
-
     child: TextButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(kPrimaryColor),

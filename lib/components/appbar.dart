@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+//for custom appbar icon in top-left corner
 AppBar buildAppBar() {
   return AppBar(
     elevation: 0.0,

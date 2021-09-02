@@ -1,6 +1,5 @@
 import 'package:codeforces_visualizer/components/appbar.dart';
 import 'package:codeforces_visualizer/components/uiElements.dart';
-import 'package:codeforces_visualizer/screens/data/bar_chart_data.dart';
 import 'package:codeforces_visualizer/screens/drawer.dart';
 import 'package:codeforces_visualizer/screens/singleUserDetailsPage.dart';
 import 'package:codeforces_visualizer/utilities/constants.dart';
@@ -12,7 +11,6 @@ import 'package:http/http.dart' as http;
 
 class SingleUserInputPage extends StatefulWidget {
   const SingleUserInputPage({Key? key}) : super(key: key);
-
   @override
   _SingleUserInputPageState createState() => _SingleUserInputPageState();
 }
@@ -38,10 +36,19 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  //user handle
   String _handle = "";
+
+  //to check for valid user handle
   bool isValid = false;
+
+  //form key
   final _formKey = GlobalKey<FormState>();
+
+  //for compare button animation
   bool changeButton = false;
+
+  //validating entered user handle
   validateUser() async {
     var url =
         Uri.https("www.codeforces.com", "/api/user.info?handles=$_handle");
@@ -63,8 +70,9 @@ class _BodyState extends State<Body> {
       setState(() {
         changeButton = true;
       });
+      //ab 1 sec to dena pdega na button animation dikhane k liye
       await Future.delayed(Duration(seconds: 1));
-      // setData();
+      //moving to details page
       await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute<void>(
@@ -73,6 +81,7 @@ class _BodyState extends State<Body> {
         ),
         ModalRoute.withName("/"),
       );
+      //reseting the data here before moving to next page
       setState(() {
         _handle = "";
         isValid = false;

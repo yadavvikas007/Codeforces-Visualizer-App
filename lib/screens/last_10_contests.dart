@@ -1,9 +1,5 @@
-import 'dart:math';
 import 'package:codeforces_visualizer/components/error_screen.dart';
-import 'package:codeforces_visualizer/screens/data/bar_chart_data.dart';
-import 'package:codeforces_visualizer/screens/data/general_data.dart';
 import 'package:codeforces_visualizer/screens/widgets/bar_groups.dart';
-import 'package:codeforces_visualizer/screens/widgets/line_chart_spots.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,10 +11,6 @@ import 'package:codeforces_visualizer/components/appbar.dart';
 import 'package:codeforces_visualizer/screens/drawer.dart';
 import 'package:codeforces_visualizer/utilities/constants.dart';
 import 'singleUserDetailsPage.dart';
-import 'singleUserScreenModels/ratingChanges.dart' as Rating;
-import 'singleUserScreenModels/submissions.dart' as Sub;
-import 'singleUserScreenModels/userInfo.dart' as Info;
-import 'package:intl/intl.dart';
 import 'singleUserScreenModels/contests.dart' as Contest;
 import 'package:codeforces_visualizer/screens/singleUserScreenModels/contestProblems.dart'
     as ContestProblems;

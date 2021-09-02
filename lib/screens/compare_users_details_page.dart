@@ -18,7 +18,7 @@ import 'package:codeforces_visualizer/utilities/constants.dart';
 import 'singleUserScreenModels/ratingChanges.dart' as Rating;
 import 'singleUserScreenModels/submissions.dart' as Sub;
 import 'singleUserScreenModels/userInfo.dart' as Info;
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
 late Info.Result userinfo1;
 late List<Sub.Result> usersubmissions1;
@@ -27,6 +27,7 @@ late Info.Result userinfo2;
 late List<Sub.Result> usersubmissions2;
 late List<Rating.Result> userratingchanges2;
 
+//colors corresponding to user rank
 const Map<String, Color> COLORS = {
   "": Colors.grey,
   "newbie": Color(0xff808185),
@@ -40,35 +41,14 @@ const Map<String, Color> COLORS = {
   "international grandmaster": Color(0xffff3333),
   "legendary grandmaster": Color(0xffaa0000),
 };
-List<Color> PieChartColors = [
-  Colors.green,
-  Colors.pink,
-  Colors.blue,
-  Colors.yellow,
-  Colors.red,
-  Colors.indigo,
-  Colors.lightGreen,
-  Colors.redAccent,
-  Colors.cyan,
-  Colors.deepPurple,
-  Colors.deepOrange,
-  Colors.purple,
-  Colors.brown,
-  Colors.orange,
-  Colors.lightBlue,
-  Colors.pinkAccent,
-  Colors.amber,
-  Colors.teal,
-  Colors.lime,
-  Colors.blueGrey,
-  Colors.grey
-];
 
+//users rating and submission objects
 late RatingChangeData user1RatingData;
 late RatingChangeData user2RatingData;
 late ProblemData user1ProblemData;
 late ProblemData user2ProblemData;
 
+//to get general data about user users submissions and rating changes
 void getgeneraldata() {
   user1RatingData = getRatingChangeData(userratingchanges1);
   user2RatingData = getRatingChangeData(userratingchanges2);
@@ -77,6 +57,7 @@ void getgeneraldata() {
 }
 
 class CompareUserDetailsPage extends StatefulWidget {
+  //user-1 and user-2 handles
   final String handle1;
   final String handle2;
   const CompareUserDetailsPage(
@@ -88,6 +69,7 @@ class CompareUserDetailsPage extends StatefulWidget {
 }
 
 class _CompareUserDetailsPageState extends State<CompareUserDetailsPage> {
+  //default page body while data is loading from api calls
   Widget _child = Scaffold(
     appBar: buildAppBar(),
     backgroundColor: creamColor,
@@ -104,16 +86,17 @@ class _CompareUserDetailsPageState extends State<CompareUserDetailsPage> {
     ),
   );
 
+  //API calling, json decoding, data parsing and storing in the user rating change and submision class objects
   void getdata() async {
     //.....................................................................
-    //user1
+    //user1 links generating
     var url11 = Uri.https(
         "www.codeforces.com", "/api/user.info?handles=${widget.handle1}");
     var url21 = Uri.https(
         "www.codeforces.com", "/api/user.status?handle=${widget.handle1}");
     var url31 = Uri.https(
         "www.codeforces.com", "/api/user.rating?handle=${widget.handle1}");
-    //user1
+    //user1 links generating
     var url12 = Uri.https(
         "www.codeforces.com", "/api/user.info?handles=${widget.handle2}");
     var url22 = Uri.https(
@@ -123,24 +106,24 @@ class _CompareUserDetailsPageState extends State<CompareUserDetailsPage> {
     //.....................................................................
 
     //.....................................................
-    //user1
+    //user1 getting response
     var userInfoResponse1 = await http.get(url11);
     var userSubmissionResponse1 = await http.get(url21);
     var userRatingChangesResponse1 = await http.get(url31);
-    //user2
+    //user2 getting response
     var userInfoResponse2 = await http.get(url12);
     var userSubmissionResponse2 = await http.get(url22);
     var userRatingChangesResponse2 = await http.get(url32);
     //.....................................................
 
-    if ( //user1 && user2
+    if ( //user1 && user2 response validating
         userInfoResponse1.statusCode == 200 &&
             userRatingChangesResponse1.statusCode == 200 &&
             userSubmissionResponse1.statusCode == 200 &&
             userInfoResponse2.statusCode == 200 &&
             userRatingChangesResponse2.statusCode == 200 &&
             userSubmissionResponse2.statusCode == 200) {
-      //user1
+      //user1 data decoding into Map< string, dynamic >
       var userInfoJsonMap1 =
           convert.jsonDecode(userInfoResponse1.body) as Map<String, dynamic>;
       var userSubmissionJsonMap1 = convert
@@ -148,57 +131,66 @@ class _CompareUserDetailsPageState extends State<CompareUserDetailsPage> {
       var userRatingChangesJsonMap1 = convert
           .jsonDecode(userRatingChangesResponse1.body) as Map<String, dynamic>;
 
-      //user2
+      //user2 data decoding into Map< string, dynamic >
       var userInfoJsonMap2 =
           convert.jsonDecode(userInfoResponse2.body) as Map<String, dynamic>;
       var userSubmissionJsonMap2 = convert
           .jsonDecode(userSubmissionResponse2.body) as Map<String, dynamic>;
       var userRatingChangesJsonMap2 = convert
           .jsonDecode(userRatingChangesResponse2.body) as Map<String, dynamic>;
-      //........................................................................
 
+      //........................................................................
+      //User1 data objects <= jsonMaps
       Info.UserInfo userInfo1 = new Info.UserInfo.fromJson(userInfoJsonMap1);
       Sub.Submissions userSubmission1 =
           new Sub.Submissions.fromJson(userSubmissionJsonMap1);
       Rating.RatingChanges userRatingChanges1 =
           new Rating.RatingChanges.fromJson(userRatingChangesJsonMap1);
-      //user2
+
+      //user2 data objects <= jsonMaps
       Info.UserInfo userInfo2 = new Info.UserInfo.fromJson(userInfoJsonMap2);
       Sub.Submissions userSubmission2 =
           new Sub.Submissions.fromJson(userSubmissionJsonMap2);
       Rating.RatingChanges userRatingChanges2 =
           new Rating.RatingChanges.fromJson(userRatingChangesJsonMap2);
       //........................................................................
-      if (userInfo1.status == "FAILED" ||
-          userInfo2.status == "FAILED" ||
-          userSubmission1.status == "FAILED" ||
-          userSubmission2.status == "FAILED" ||
-          userRatingChanges1.status == "FAILED" ||
-          userRatingChanges2.status == "FAILED") {
+
+      if ( //checking for any server errors in receiving data
+          userInfo1.status == "FAILED" ||
+              userInfo2.status == "FAILED" ||
+              userSubmission1.status == "FAILED" ||
+              userSubmission2.status == "FAILED" ||
+              userRatingChanges1.status == "FAILED" ||
+              userRatingChanges2.status == "FAILED") {
+        //if yes display error page
         setState(() {
           _child = Error2Screen();
         });
       } else {
+        //if data is valid pass the data in global objects
         userratingchanges1 = userRatingChanges1.result;
         usersubmissions1 = userSubmission1.result;
         userinfo1 = userInfo1.result[0];
         userratingchanges2 = userRatingChanges2.result;
         usersubmissions2 = userSubmission2.result;
         userinfo2 = userInfo2.result[0];
-        getgeneraldata();
+        getgeneraldata(); //getting general data
 
+        //now after all the data is ready, build beautiful widgets using it
         setState(() {
           _child = CompareDetails();
         });
       }
       //........................................................................
     } else {
+      //in case of any other error in API calling => display error page
       setState(() {
         _child = Error2Screen();
       });
     }
   }
 
+  //initstate calling the getdata function
   @override
   void initState() {
     getdata();
@@ -221,6 +213,7 @@ class CompareDetails extends StatefulWidget {
 class _CompareDetailsState extends State<CompareDetails> {
   @override
   Widget build(BuildContext context) {
+    //screen size
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -1338,47 +1331,47 @@ class _RatingTimelineState extends State<RatingTimeline> {
   }
 }
 
-SideTitles _bottomTitles() {
-  int m1 = userratingchanges1.length;
-  int m2 = userratingchanges2.length;
-  int _minX = 0;
-  int _maxX = 0;
+//bottomtiles for line chart..........................
+// SideTitles _bottomTitles() {
+//   int m1 = userratingchanges1.length;
+//   int m2 = userratingchanges2.length;
+//   int _minX = 0;
+//   int _maxX = 0;
+//   if (m1 >= 1 && m2 >= 1)
+//     _minX = min(userratingchanges1[0].ratingUpdateTimeSeconds,
+//         userratingchanges2[0].ratingUpdateTimeSeconds);
+//   else if (m1 >= 1)
+//     _minX = userratingchanges1[0].ratingUpdateTimeSeconds;
+//   else if (m2 >= 1) _minX = userratingchanges2[0].ratingUpdateTimeSeconds;
+//   if (m1 >= 1 && m2 >= 1)
+//     _maxX = min(userratingchanges1[m1 - 1].ratingUpdateTimeSeconds,
+//         userratingchanges2[m2 - 1].ratingUpdateTimeSeconds);
+//   else if (m1 >= 1)
+//     _maxX = userratingchanges1[m1 - 1].ratingUpdateTimeSeconds;
+//   else if (m2 >= 1) _maxX = userratingchanges2[m2 - 1].ratingUpdateTimeSeconds;
+//   // _maxX += 10000;
+//   return SideTitles(
+//     getTextStyles: (context, value) {
+//       return TextStyle(color: Colors.black, fontSize: 12);
+//     },
+//     showTitles: (_maxX != 0 && _minX != 0),
+//     getTitles: (value) {
+//       final DateTime date =
+//           DateTime.fromMillisecondsSinceEpoch(value.toInt() * 1000);
+//       return DateFormat.yMMM().format(date);
+//     },
+//     margin: 8,
+//     interval: (_maxX - _minX) / 10,
+//   );
+// }
 
-  if (m1 >= 1 && m2 >= 1)
-    _minX = min(userratingchanges1[0].ratingUpdateTimeSeconds,
-        userratingchanges2[0].ratingUpdateTimeSeconds);
-  else if (m1 >= 1)
-    _minX = userratingchanges1[0].ratingUpdateTimeSeconds;
-  else if (m2 >= 1) _minX = userratingchanges2[0].ratingUpdateTimeSeconds;
-
-  if (m1 >= 1 && m2 >= 1)
-    _maxX = min(userratingchanges1[m1 - 1].ratingUpdateTimeSeconds,
-        userratingchanges2[m2 - 1].ratingUpdateTimeSeconds);
-  else if (m1 >= 1)
-    _maxX = userratingchanges1[m1 - 1].ratingUpdateTimeSeconds;
-  else if (m2 >= 1) _maxX = userratingchanges2[m2 - 1].ratingUpdateTimeSeconds;
-  // _maxX += 10000;
-
-  return SideTitles(
-    getTextStyles: (context, value) {
-      return TextStyle(color: Colors.black, fontSize: 12);
-    },
-    showTitles: (_maxX != 0 && _minX != 0),
-    getTitles: (value) {
-      final DateTime date =
-          DateTime.fromMillisecondsSinceEpoch(value.toInt() * 1000);
-      return DateFormat.yMMM().format(date);
-    },
-    margin: 8,
-    interval: (_maxX - _minX) / 10,
-  );
-}
-
+//to reduce precision of a double to x decimal places
 double dp(double val, int places) {
   double mod = pow(10.0, places).toDouble();
   return ((val * mod).round().toDouble() / mod);
 }
 
+//a table row (used in best rank worst rank widget)
 Widget tableRow(String data, Color color, double size) {
   return Center(
     child: Text(
@@ -1392,6 +1385,7 @@ Widget tableRow(String data, Color color, double size) {
   );
 }
 
+//bar chart rod
 BarChartRodData bar(double y, Color color) {
   return BarChartRodData(
     y: y,
@@ -1401,6 +1395,7 @@ BarChartRodData bar(double y, Color color) {
   );
 }
 
+//rounding of the num to nearest 100
 int calculateNumber(int number) {
   int a = number % 100;
   if (a > 0) {

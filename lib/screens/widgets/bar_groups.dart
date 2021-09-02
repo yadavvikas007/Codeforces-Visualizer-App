@@ -4,6 +4,7 @@ import 'package:codeforces_visualizer/screens/singleUserScreenModels/submissions
     as sub;
 import 'package:fl_chart/fl_chart.dart';
 
+//to get the ratings bar data for rating bar chart(single user page)
 List<BarChartGroupData> get_ratings_bars(
     int touchedIndex, List<sub.Result> subData) {
   List<Data> data = ratingsBarsFromData(subData);
@@ -32,6 +33,7 @@ List<BarChartGroupData> get_ratings_bars(
   return bdata;
 }
 
+//meri glti nhi h dart m char nhi hota
 int f(String s) {
   if (s == "A") return 1;
   if (s == "B") return 2;
@@ -92,6 +94,7 @@ String f1(int s) {
   return " ";
 }
 
+//to get the ratings bar data for rating bar chart(single user page)
 List<BarChartGroupData> get_indexes_bars(
     int touchedIndex, List<sub.Result> subData) {
   List<Data1> data = levelsBarsFromData(subData);
@@ -120,6 +123,7 @@ List<BarChartGroupData> get_indexes_bars(
   return bdata;
 }
 
+//to get the level bar data for levels bar chart (compare users page)
 List<BarChartGroupData> getLevelsCompare(
     List<sub.Result> subData1, List<sub.Result> subData2) {
   List<Data2> data = levelsFor2Users(subData1, subData2);
@@ -157,6 +161,7 @@ List<BarChartGroupData> getLevelsCompare(
   return bdata;
 }
 
+//to get the ratings bar data for rating bar chart(compare user page)
 List<BarChartGroupData> getRatingsCompare(
     List<sub.Result> subData1, List<sub.Result> subData2) {
   List<Data3> data = ratingsFor2Users(subData1, subData2);

@@ -2,11 +2,13 @@ import 'dart:math';
 import 'package:codeforces_visualizer/screens/singleUserScreenModels/submissions.dart'
     as sub;
 
+//maxvalues for bar graphs y axis range display
 double maxRatingCount = 0.0;
 double maxLevelCount = 0.0;
 double maxlevel2 = 0.0;
 double maxRating2 = 0.0;
 
+//return bars for ratings bargraph in single user page
 List<Data> ratingsBarsFromData(List<sub.Result> subData) {
   maxRatingCount = 0.0;
   Map<int, double> mp = {};
@@ -31,10 +33,12 @@ List<Data> ratingsBarsFromData(List<sub.Result> subData) {
       ));
     }
   });
+  //sorting data in increasing value of ratings
   data.sort((a, b) => a.name.compareTo(b.name));
   return data;
 }
 
+//return bars for levels bargraph in single user page
 List<Data1> levelsBarsFromData(List<sub.Result> subData) {
   maxLevelCount = 0.0;
   Map<String, double> mp = {};
@@ -63,6 +67,7 @@ List<Data1> levelsBarsFromData(List<sub.Result> subData) {
   return data;
 }
 
+//data classes for bargraphs {x,y} points for all bargraphs in both single user and compare user pages
 class Data1 {
   final String name;
   final double value;
@@ -89,6 +94,7 @@ class Data3 {
   Data3(this.name1, this.value1, this.value2);
 }
 
+//return bars for levels bargraph in compare users page
 List<Data2> levelsFor2Users(
     List<sub.Result> subData1, List<sub.Result> subData2) {
   maxlevel2 = 0.0;
@@ -137,6 +143,7 @@ List<Data2> levelsFor2Users(
   return data;
 }
 
+//return bars for ratings bargraph in compare users page
 List<Data3> ratingsFor2Users(
     List<sub.Result> subData1, List<sub.Result> subData2) {
   maxRating2 = 0.0;

@@ -5,21 +5,22 @@ import 'package:codeforces_visualizer/screens/data/pie_data.dart';
 import 'package:codeforces_visualizer/screens/widgets/bar_groups.dart';
 import 'package:codeforces_visualizer/screens/widgets/line_chart_spots.dart';
 import 'package:codeforces_visualizer/screens/widgets/pie_chart_sections.dart';
+import 'package:codeforces_visualizer/components/appbar.dart';
+import 'package:codeforces_visualizer/screens/drawer.dart';
+import 'package:codeforces_visualizer/utilities/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as convert;
-import 'package:codeforces_visualizer/components/appbar.dart';
-import 'package:codeforces_visualizer/screens/drawer.dart';
-import 'package:codeforces_visualizer/utilities/constants.dart';
-import 'package:intl/intl.dart';
 import 'singleUserScreenModels/ratingChanges.dart' as Rating;
 import 'singleUserScreenModels/submissions.dart' as Sub;
 import 'singleUserScreenModels/userInfo.dart' as Info;
 
+//colors according to rank
 const Map<String, Color> COLORS = {
   "": Colors.grey,
   "newbie": Color(0xff808185),
@@ -33,6 +34,8 @@ const Map<String, Color> COLORS = {
   "international grandmaster": Color(0xffff3333),
   "legendary grandmaster": Color(0xffaa0000),
 };
+
+//piechart section colors
 List<Color> PieChartColors = [
   Colors.green,
   Colors.pink,
@@ -57,21 +60,22 @@ List<Color> PieChartColors = [
   Colors.grey
 ];
 
+//users rating and submission objects
 late Info.Result userinfo;
 late List<Sub.Result> usersubmissions;
 late List<Rating.Result> userratingchanges;
 
 class SingleUserDetailsPage extends StatefulWidget {
+  //user handle
   final String handle;
-
   const SingleUserDetailsPage({Key? key, required this.handle})
       : super(key: key);
-
   @override
   _SingleUserDetailsPageState createState() => _SingleUserDetailsPageState();
 }
 
 class _SingleUserDetailsPageState extends State<SingleUserDetailsPage> {
+  //
   Widget _child = Scaffold(
     appBar: buildAppBar(),
     backgroundColor: creamColor,
@@ -88,8 +92,10 @@ class _SingleUserDetailsPageState extends State<SingleUserDetailsPage> {
     ),
   );
 
+  //API calling, json decoding, data parsing and storing in the user rating change and submision class objects
   void getdata() async {
     //.....................................................................
+    //link generation
     var url1 = Uri.https(
         "www.codeforces.com", "/api/user.info?handles=${widget.handle}");
     var url2 = Uri.https(
@@ -99,14 +105,17 @@ class _SingleUserDetailsPageState extends State<SingleUserDetailsPage> {
     //.....................................................................
 
     //.....................................................
+    //getting response
     var userInfoResponse = await http.get(url1);
     var userSubmissionResponse = await http.get(url2);
     var userRatingChangesResponse = await http.get(url3);
     //.....................................................
 
-    if (userInfoResponse.statusCode == 200 &&
-        userRatingChangesResponse.statusCode == 200 &&
-        userSubmissionResponse.statusCode == 200) {
+    if ( //response validating
+        userInfoResponse.statusCode == 200 &&
+            userRatingChangesResponse.statusCode == 200 &&
+            userSubmissionResponse.statusCode == 200) {
+      //user data decoding into Map< string, dynamic >
       var userInfoJsonMap =
           convert.jsonDecode(userInfoResponse.body) as Map<String, dynamic>;
       var userSubmissionJsonMap = convert
@@ -114,35 +123,41 @@ class _SingleUserDetailsPageState extends State<SingleUserDetailsPage> {
       var userRatingChangesJsonMap = convert
           .jsonDecode(userRatingChangesResponse.body) as Map<String, dynamic>;
       //........................................................................
-
+      //User data objects <= jsonMaps
       Info.UserInfo userInfo = new Info.UserInfo.fromJson(userInfoJsonMap);
       Sub.Submissions userSubmission =
           new Sub.Submissions.fromJson(userSubmissionJsonMap);
       Rating.RatingChanges userRatingChanges =
           new Rating.RatingChanges.fromJson(userRatingChangesJsonMap);
       //........................................................................
-      if (userInfo.status == "FAILED" ||
-          userSubmission.status == "FAILED" ||
-          userRatingChanges.status == "FAILED") {
+
+      if ( //checking for any server errors in receiving data
+          userInfo.status == "FAILED" ||
+              userSubmission.status == "FAILED" ||
+              userRatingChanges.status == "FAILED") {
+        //if yes display error page
         setState(() {
           _child = Error2Screen();
         });
       } else {
+        //if data is valid pass the data in global objects
         userratingchanges = userRatingChanges.result;
         usersubmissions = userSubmission.result;
         userinfo = userInfo.result[0];
-        //........................................................................
+        //now after all the data is ready, build beautiful widgets using it
         setState(() {
           _child = Details();
         });
       }
     } else {
+      //in case of any other error in API calling => display error page
       setState(() {
         _child = Error2Screen();
       });
     }
   }
 
+  //initstate calling the getdata function
   @override
   void initState() {
     getdata();
@@ -992,6 +1007,7 @@ Widget listTileContests(String trailing, String title) {
   );
 }
 
+//ratings timeline x axis titles
 SideTitles _bottomTitles() {
   int m1 = userratingchanges.length;
   int _minX = 0;
@@ -1015,6 +1031,7 @@ SideTitles _bottomTitles() {
   );
 }
 
+//incase no data received (empty list of object)
 Widget noData(Size size) {
   return Container(
     width: size.width,

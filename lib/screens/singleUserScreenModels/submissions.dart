@@ -14,6 +14,7 @@ class Submissions {
   }
 }
 
+//smaller names for verdicts
 const Map<String, String> alternate_names = {
   "COMPILATION_ERROR": "COMP_ERR",
   "RUNTIME_ERROR": "RUN_ERR",
@@ -25,26 +26,6 @@ const Map<String, String> alternate_names = {
   "SECURITY_VIOLATED": "SEC_VIOL",
   "INPUT_PREPARATION_CRASHED": "IPC"
 };
-
-// const Map<String, String> alternate_names_for_tags = {
-
-// "data structures": "ds",
-// "brute force": "brute",
-// "constructive algorithms": "constructive",
-// "dfs and similar":"dfs/similar",
-// "number theory": "No._Theory",
-// "combinatorics": "Combin.",
-// "two pointers": "2_ptr",
-// "divide and conquer": "div._Conq.",
-// "string suffix structures": "string_suff.",
-// "graph matchings": "graph_match.",
-// ternary search 36,
-// expression parsing 33,
-// meet-in-the-middle 32,
-// 2-sat 17,
-// chinese remainder theorem 10,
-// schedules 5,
-// };
 
 class Result {
   late int id;

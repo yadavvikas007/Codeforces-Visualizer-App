@@ -4,6 +4,7 @@ import 'package:codeforces_visualizer/screens/singleUserScreenModels/submissions
 import 'package:codeforces_visualizer/screens/singleUserScreenModels/ratingChanges.dart'
     as Rating;
 
+//problem class
 class ProblemData {
   final int solvedQuestions;
   final int triedQuestions;
@@ -15,6 +16,7 @@ class ProblemData {
       this.maxAttempt, this.solvedInOneAttempt, this.maxAcceptedForSameQues);
 }
 
+//to get problem data stats from list of usersubmission objects
 ProblemData getProblemsData(List<sub.Result> usersubmissions) {
   int solvedQuestions = 0;
   int triedQuestions = 0;
@@ -57,6 +59,7 @@ ProblemData getProblemsData(List<sub.Result> usersubmissions) {
       maxAttempt, solvedInOneAttempt, maxAcceptedForSameQues);
 }
 
+//rating changes class
 class RatingChangeData {
   final int numOfContests;
   final int maxUp;
@@ -67,6 +70,7 @@ class RatingChangeData {
       this.bestRank);
 }
 
+//rating changes data from list of rating change objects
 RatingChangeData getRatingChangeData(List<Rating.Result> userratingchanges) {
   int numOfContests = 0;
   int maxUp = userratingchanges.isNotEmpty ? userratingchanges[0].newRating : 0;
