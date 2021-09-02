@@ -1,16 +1,47 @@
-# codeforces_visualizer
+# Codeforces Visualizer APP
+Complete Flutter Application. Uses codeforces API.
 
-A new Flutter project.
 
-## Getting Started
+## Features
+* User Statistics
+* Compare Users
+* Last 10 Contests Analysis
 
-This project is a starting point for a Flutter application.
+## Packages Used
+* http
+* flutter_spinkit
+* fl_chart 
+***
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+Download project 
+```
+git clone https://github.com/yadavvikas007/Codeforces-Visualizer-App.git
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Get flutter dependencies
+```
+flutter pub get
+```
+Run the app
+```
+flutter run
+```
+If you have any error with generated files try to run this
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+***
+## Testing
+Unit Test
+```
+flutter test
+```
+Integration Test
+```
+flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart
+```
+***
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
