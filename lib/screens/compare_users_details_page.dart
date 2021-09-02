@@ -1208,7 +1208,7 @@ class _ProblemRatingsState extends State<ProblemRatings> {
                     ),
                     barGroups: barGroups,
                     groupsSpace: 50,
-                    maxY: maxRating2 * 1.5,
+                    maxY: min(maxRating2 * 1.5, 550),
                     axisTitleData: FlAxisTitleData(
                       bottomTitle: AxisTitle(
                         titleText: "Problem Ratings",
