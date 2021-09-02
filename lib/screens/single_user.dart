@@ -137,7 +137,6 @@ class _BodyState extends State<Body> {
                             child: TextFormField(
                               onChanged: (value) {
                                 _handle = value;
-                                print(_handle);
                                 validateUser();
                               },
                               validator: (value) {
