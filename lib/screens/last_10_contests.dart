@@ -502,6 +502,8 @@ class _RatingsState extends State<Ratings> {
                       show: false,
                     ),
                     titlesData: FlTitlesData(
+                      topTitles: SideTitles(showTitles: false),
+                      rightTitles: SideTitles(showTitles: false),
                       // Build X axis.
                       bottomTitles: SideTitles(
                         getTextStyles: (context, value) {
@@ -520,14 +522,14 @@ class _RatingsState extends State<Ratings> {
                         },
                         showTitles: true,
                         getTitles: (double value) {
-                          if (value.toInt() % 5 != 0) return "";
+                          if (value.toInt() % 2 != 0) return "";
                           return value.toInt().toString();
                         },
                       ),
                     ),
                     barGroups: barGroups,
                     groupsSpace: 50,
-                    maxY: 13.0,
+                    maxY: 15.0,
                     axisTitleData: FlAxisTitleData(
                       bottomTitle: AxisTitle(
                         titleText: "Problem Ratings",
@@ -604,8 +606,9 @@ class _LevelsState extends State<Levels> {
                       show: false,
                     ),
                     titlesData: FlTitlesData(
+                      topTitles: SideTitles(showTitles: false),
+                      rightTitles: SideTitles(showTitles: false),
                       // Build X axis.
-
                       bottomTitles: SideTitles(
                         getTextStyles: (context, value) {
                           return TextStyle(color: Colors.black, fontSize: 12);

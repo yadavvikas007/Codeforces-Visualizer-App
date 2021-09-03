@@ -378,6 +378,8 @@ class _RatingComparisionState extends State<RatingComparision> {
                           BarTouchTooltipData(tooltipBgColor: Colors.white)),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
+                    topTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(showTitles: false),
                     // Build X axis.
                     bottomTitles: SideTitles(
                       getTextStyles: (context, value) {
@@ -392,12 +394,12 @@ class _RatingComparisionState extends State<RatingComparision> {
                     // Build Y axis.
                     leftTitles: SideTitles(
                       getTextStyles: (context, value) {
-                        return TextStyle(color: Colors.black, fontSize: 12);
+                        return TextStyle(color: Colors.black, fontSize: 10);
                       },
                       showTitles: true,
                       getTitles: (double value) {
                         if (value.toInt() % 1000 != 0) return "";
-                        return value.toInt().toString();
+                        return (value / 1000).toStringAsFixed(1) + "k";
                       },
                     ),
                   ),
@@ -480,6 +482,8 @@ class _MaxUpMaxDownRatingState extends State<MaxUpMaxDownRating> {
                           BarTouchTooltipData(tooltipBgColor: Colors.white)),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
+                    topTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(showTitles: false),
                     // Build X axis.
                     bottomTitles: SideTitles(
                       getTextStyles: (context, value) {
@@ -584,6 +588,8 @@ class _ContestsCountState extends State<ContestsCount> {
                           BarTouchTooltipData(tooltipBgColor: Colors.white)),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
+                    topTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(showTitles: false),
                     // Build X axis.
                     bottomTitles: SideTitles(
                       getTextStyles: (context, value) {
@@ -748,6 +754,8 @@ class _SolvedTriedProblemsState extends State<SolvedTriedProblems> {
                           BarTouchTooltipData(tooltipBgColor: Colors.white)),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
+                    topTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(showTitles: false),
                     // Build X axis.
                     bottomTitles: SideTitles(
                       getTextStyles: (context, value) {
@@ -762,7 +770,7 @@ class _SolvedTriedProblemsState extends State<SolvedTriedProblems> {
                     // Build Y axis.
                     leftTitles: SideTitles(
                       getTextStyles: (context, value) {
-                        return TextStyle(color: Colors.black, fontSize: 12);
+                        return TextStyle(color: Colors.black, fontSize: 10);
                       },
                       showTitles: true,
                       interval: calculateNumber(max(
@@ -771,7 +779,7 @@ class _SolvedTriedProblemsState extends State<SolvedTriedProblems> {
                           5,
                       getTitles: (double value) {
                         if (value.toInt() % 1 != 0) return "";
-                        return value.toInt().toString();
+                        return (value / 1000).toStringAsFixed(1) + "k";
                       },
                     ),
                   ),
@@ -859,6 +867,8 @@ class _AverageSubmissionState extends State<AverageSubmission> {
                           BarTouchTooltipData(tooltipBgColor: Colors.white)),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
+                    topTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(showTitles: false),
                     // Build X axis.
                     bottomTitles: SideTitles(
                       getTextStyles: (context, value) {
@@ -976,6 +986,8 @@ class _SolvedInOneAttemptState extends State<SolvedInOneAttempt> {
                           BarTouchTooltipData(tooltipBgColor: Colors.white)),
                   borderData: FlBorderData(show: false),
                   titlesData: FlTitlesData(
+                    topTitles: SideTitles(showTitles: false),
+                    rightTitles: SideTitles(showTitles: false),
                     // Build X axis.
                     bottomTitles: SideTitles(
                       getTextStyles: (context, value) {
@@ -1078,8 +1090,9 @@ class _ProblemLevelsCompareState extends State<ProblemLevelsCompare> {
                             BarTouchTooltipData(tooltipBgColor: Colors.white)),
                     borderData: FlBorderData(show: false),
                     titlesData: FlTitlesData(
+                      topTitles: SideTitles(showTitles: false),
+                      rightTitles: SideTitles(showTitles: false),
                       // Build X axis.
-
                       bottomTitles: SideTitles(
                         getTextStyles: (context, value) {
                           return TextStyle(color: Colors.black, fontSize: 12);
@@ -1182,8 +1195,9 @@ class _ProblemRatingsState extends State<ProblemRatings> {
                             BarTouchTooltipData(tooltipBgColor: Colors.white)),
                     borderData: FlBorderData(show: false),
                     titlesData: FlTitlesData(
+                      topTitles: SideTitles(showTitles: false),
+                      rightTitles: SideTitles(showTitles: false),
                       // Build X axis.
-
                       bottomTitles: SideTitles(
                         getTextStyles: (context, value) {
                           return TextStyle(color: Colors.black, fontSize: 12);
@@ -1287,8 +1301,8 @@ class _RatingTimelineState extends State<RatingTimeline> {
                             LineTouchTooltipData(tooltipBgColor: Colors.white)),
                     borderData: FlBorderData(show: false),
                     maxY: max(userinfo1.maxRating.toDouble(),
-                            userinfo2.maxRating.toDouble()) *
-                        1.5,
+                            userinfo2.maxRating.toDouble()) +
+                        1500,
                     minY: 0.0,
                     gridData: FlGridData(
                       drawHorizontalLine: true,
@@ -1306,16 +1320,18 @@ class _RatingTimelineState extends State<RatingTimeline> {
                       show: true,
                     ),
                     titlesData: FlTitlesData(
+                      topTitles: SideTitles(showTitles: false),
+                      rightTitles: SideTitles(showTitles: false),
                       bottomTitles: SideTitles(showTitles: false),
                       leftTitles: SideTitles(
                         getTextStyles: (context, value) {
-                          return TextStyle(color: Colors.black, fontSize: 12);
+                          return TextStyle(color: Colors.black, fontSize: 10);
                         },
                         showTitles: true,
                         interval: 500,
                         getTitles: (value) {
                           if (value == 0.0) return "";
-                          return value.toInt().toString();
+                          return (value / 1000).toStringAsFixed(1) + "k";
                         },
                       ),
                     ),

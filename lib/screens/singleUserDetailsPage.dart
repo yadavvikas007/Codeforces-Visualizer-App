@@ -391,13 +391,20 @@ class _PieChartVerdictsState extends State<PieChartVerdicts> {
             child: PieChart(
               PieChartData(
                 pieTouchData: PieTouchData(
-                  touchCallback: (pieTouchResponse) {
-                    setState(() {
+                    touchCallback: (FlTouchEvent, PieTouchResponse) {
+                  setState(() {
+                    if (PieTouchResponse != null)
                       touchedIndex =
-                          pieTouchResponse.touchedSection!.touchedSectionIndex;
-                    });
-                  },
-                ),
+                          PieTouchResponse.touchedSection!.touchedSectionIndex;
+                  });
+                }
+                    // touchCallback: (pieTouchResponse) {
+                    //   setState(() {
+                    //     touchedIndex =
+                    //         pieTouchResponse.touchedSection!.touchedSectionIndex;
+                    //   });
+                    // },
+                    ),
                 borderData: FlBorderData(show: false),
                 sectionsSpace: 0,
                 centerSpaceRadius: 30,
@@ -466,13 +473,20 @@ class _PieChartTagsState extends State<PieChartTags> {
             child: PieChart(
               PieChartData(
                 pieTouchData: PieTouchData(
-                  touchCallback: (pieTouchResponse) {
-                    setState(() {
+                    touchCallback: (FlTouchEvent, PieTouchResponse) {
+                  setState(() {
+                    if (PieTouchResponse != null)
                       touchedIndex =
-                          pieTouchResponse.touchedSection!.touchedSectionIndex;
-                    });
-                  },
-                ),
+                          PieTouchResponse.touchedSection!.touchedSectionIndex;
+                  });
+                }
+                    // touchCallback: (pieTouchResponse) {
+                    //   setState(() {
+                    //     touchedIndex =
+                    //         pieTouchResponse.touchedSection!.touchedSectionIndex;
+                    //   });
+                    // },
+                    ),
                 borderData: FlBorderData(show: false),
                 sectionsSpace: 0,
                 centerSpaceRadius: 30,
@@ -640,13 +654,13 @@ class _ProblemsRatingsState extends State<ProblemsRatings> {
                       // Build Y axis.
                       leftTitles: SideTitles(
                         getTextStyles: (context, value) {
-                          return TextStyle(color: Colors.black);
+                          return TextStyle(color: Colors.black, fontSize: 12);
                         },
                         showTitles: true,
-                        getTitles: (double value) {
-                          if (value.toInt() % 50 != 0) return "";
-                          return value.toInt().toString();
-                        },
+                        // getTitles: (double value) {
+                        //   if (value.toInt() % 50 != 0) return "";
+                        //   return value.toInt().toString();
+                        // },
                       ),
                     ),
                     barGroups: barGroups,
@@ -733,7 +747,7 @@ class _ProblemLevelsState extends State<ProblemLevels> {
                       // Build X axis.
                       bottomTitles: SideTitles(
                         getTextStyles: (context, value) {
-                          return TextStyle(color: Colors.black);
+                          return TextStyle(color: Colors.black, fontSize: 12);
                         },
                         showTitles: true,
                         margin: 16,
@@ -744,13 +758,13 @@ class _ProblemLevelsState extends State<ProblemLevels> {
                       // Build Y axis.
                       leftTitles: SideTitles(
                         getTextStyles: (context, value) {
-                          return TextStyle(color: Colors.black);
+                          return TextStyle(color: Colors.black, fontSize: 12);
                         },
                         showTitles: true,
-                        getTitles: (double value) {
-                          if (value.toInt() % 50 != 0) return "";
-                          return value.toInt().toString();
-                        },
+                        // getTitles: (double value) {
+                        //   if (value.toInt() % 5 != 0) return "";
+                        //   return value.toInt().toString();
+                        // },
                       ),
                     ),
                     barGroups: barGroups,
@@ -921,7 +935,7 @@ class _RatingsChartState extends State<RatingsChart> {
                 height: widget.size.height * 0.5,
                 width: widget.size.width * 5.0,
                 padding:
-                    EdgeInsets.only(right: 20, bottom: 10, top: 10, left: 10),
+                    EdgeInsets.only(right: 20, bottom: 10, top: 10, left: 0),
                 child: LineChart(
                   LineChartData(
                     lineTouchData: LineTouchData(
@@ -932,20 +946,22 @@ class _RatingsChartState extends State<RatingsChart> {
                     minY: 0.0,
                     gridData: FlGridData(
                       drawHorizontalLine: false,
+                      drawVerticalLine: false,
                     ),
                     titlesData: FlTitlesData(
+                      topTitles: SideTitles(showTitles: false),
                       // Build X axis.
                       bottomTitles: _bottomTitles(),
                       // Build Y axis.
                       leftTitles: SideTitles(
                         getTextStyles: (context, value) {
-                          return TextStyle(color: Colors.black, fontSize: 12);
+                          return TextStyle(color: Colors.black, fontSize: 10);
                         },
                         showTitles: true,
                         interval: 500,
                         getTitles: (value) {
                           if (value == 0.0) return "";
-                          return value.toInt().toString();
+                          return (value / 1000).toStringAsFixed(1) + "k";
                         },
                       ),
                     ),
