@@ -56,14 +56,17 @@ class Contest {
       required this.relativeTimeSeconds});
 
   Contest.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    type = json['type'];
-    phase = json['phase'];
-    frozen = json['frozen'];
-    durationSeconds = json['durationSeconds'];
-    startTimeSeconds = json['startTimeSeconds'];
-    relativeTimeSeconds = json['relativeTimeSeconds'];
+    id = json['id'] != null ? json['id'] : 0;
+    name = json['name'] != null ? json['name'] : "";
+    type = json['type'] != null ? json['type'] : "";
+    phase = json['phase'] != null ? json['phase'] : "";
+    frozen = json['frozen'] != null ? json['frozen'] : false;
+    durationSeconds =
+        json['durationSeconds'] != null ? json['durationSeconds'] : 0;
+    startTimeSeconds =
+        json['startTimeSeconds'] != null ? json['startTimeSeconds'] : 0;
+    relativeTimeSeconds =
+        json['relativeTimeSeconds'] != null ? json['relativeTimeSeconds'] : 0;
   }
 }
 
@@ -84,12 +87,12 @@ class Problems {
       required this.tags});
 
   Problems.fromJson(Map<String, dynamic> json) {
-    contestId = json['contestId'];
-    index = json['index'];
-    name = json['name'];
-    type = json['type'];
-    rating = json['rating'];
-    tags = json['tags'].cast<String>();
+    contestId = json['contestId'] != null ? json['contestId'] : -1;
+    index = json['index'] != null ? json['index'] : "";
+    name = json['name'] != null ? json['name'] : "";
+    type = json['type'] != null ? json['type'] : "";
+    rating = json['rating'] != null ? json['rating'] : 0;
+    tags = json['tags'] != null ? json['tags'].cast<String>() : [];
   }
 }
 
