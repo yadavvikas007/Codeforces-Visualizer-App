@@ -529,7 +529,7 @@ class _RatingsState extends State<Ratings> {
                     ),
                     barGroups: barGroups,
                     groupsSpace: 50,
-                    maxY: 15.0,
+                    maxY: 18.0,
                     axisTitleData: FlAxisTitleData(
                       bottomTitle: AxisTitle(
                         titleText: "Problem Ratings",
@@ -633,7 +633,7 @@ class _LevelsState extends State<Levels> {
                     ),
                     barGroups: barGroups,
                     groupsSpace: 50,
-                    maxY: 23.0,
+                    maxY: 28.0,
                     axisTitleData: FlAxisTitleData(
                       bottomTitle: AxisTitle(
                         titleText: "Problem Levels",
