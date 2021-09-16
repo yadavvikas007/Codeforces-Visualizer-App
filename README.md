@@ -26,8 +26,9 @@ Ready to use Flutter Application. Uses codeforces API. Useful for codeforces pro
 * http
 * flutter_spinkit
 * fl_chart 
+
 ***
-## Installation
+## Cloning and Debugging
 
 Download project 
 ```
@@ -46,6 +47,7 @@ If you have any error with generated files try to run this
 ```
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
+
 ***
 ## Testing
 Unit Test
@@ -56,6 +58,25 @@ Integration Test
 ```
 flutter drive --driver=test_driver/integration_test.dart --target=integration_test/main_test.dart
 ```
+
+***
+## Installation on android device
+
+* Step 1: Open the command prompt or pwershell in the cloned project folder.
+* Step 2: Run flutter clean
+```
+flutter clean
+```
+* Step 3: Get dependencies again
+```
+flutter pub get
+```
+* Step 4: Connect the android device via USB cable and enable USB debugging on the device.
+* Step 5: Run flutter install
+```
+flutter install
+```
+
 ***
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
