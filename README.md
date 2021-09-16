@@ -62,7 +62,7 @@ flutter drive --driver=test_driver/integration_test.dart --target=integration_te
 ***
 ## Installation on android device
 
-* Step 1: Open the command prompt or pwershell in the cloned project folder.
+* Step 1: Open terminal in the cloned project folder.
 * Step 2: Run flutter clean
 ```
 flutter clean
